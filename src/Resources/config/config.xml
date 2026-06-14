@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
+
+    <card>
+        <title>General</title>
+        <title lang="de-DE">Allgemein</title>
+
+        <input-field type="bool">
+            <name>active</name>
+            <label>Enable coming soon page</label>
+            <label lang="de-DE">Coming-Soon-Seite aktivieren</label>
+            <helpText>Blocks the WHOLE sales channel. Whitelisted IPs and preview links are not affected. Leave off and use "Specific URLs" below to only block individual pages.</helpText>
+            <helpText lang="de-DE">Sperrt den GESAMTEN Verkaufskanal. IP-Whitelist und Vorschau-Link sind davon ausgenommen. Aus lassen und unten "Bestimmte URLs" nutzen, um nur einzelne Seiten zu sperren.</helpText>
+            <defaultValue>false</defaultValue>
+        </input-field>
+
+        <input-field type="textarea">
+            <name>comingSoonPaths</name>
+            <label>Specific URLs (paths)</label>
+            <label lang="de-DE">Bestimmte URLs (Pfade)</label>
+            <helpText>One path per line, relative to the domain, e.g. /summer-sale. These pages show the coming soon page even when the toggle above is OFF. Sub-pages are matched too (/summer-sale also covers /summer-sale/shoes); use * as a wildcard. IP whitelist and preview link still apply. Leave empty to only use the channel-wide toggle.</helpText>
+            <helpText lang="de-DE">Ein Pfad pro Zeile, relativ zur Domain, z. B. /sommer-sale. Diese Seiten zeigen die Coming-Soon-Seite auch dann, wenn der Schalter oben AUS ist. Unterseiten werden mitgematcht (/sommer-sale gilt auch für /sommer-sale/schuhe); * als Platzhalter nutzbar. IP-Whitelist und Vorschau-Link greifen weiterhin. Leer lassen, um nur den kanalweiten Schalter zu verwenden.</helpText>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Content</title>
+        <title lang="de-DE">Inhalt</title>
+
+        <input-field type="text">
+            <name>title</name>
+            <label>Headline</label>
+            <label lang="de-DE">Überschrift</label>
+            <helpText>Leave empty to use the translated default headline.</helpText>
+            <helpText lang="de-DE">Leer lassen, um die übersetzte Standard-Überschrift zu verwenden.</helpText>
+        </input-field>
+
+        <component name="sw-text-editor">
+            <name>message</name>
+            <label>Text</label>
+            <label lang="de-DE">Text</label>
+            <helpText>Leave empty to use the translated default text.</helpText>
+            <helpText lang="de-DE">Leer lassen, um den übersetzten Standardtext zu verwenden.</helpText>
+        </component>
+    </card>
+
+    <card>
+        <title>Design</title>
+        <title lang="de-DE">Design</title>
+
+        <component name="sw-media-field">
+            <name>backgroundMedia</name>
+            <label>Background image</label>
+            <label lang="de-DE">Hintergrundbild</label>
+        </component>
+
+        <component name="sw-media-field">
+            <name>logoMedia</name>
+            <label>Logo</label>
+            <label lang="de-DE">Logo</label>
+        </component>
+
+        <input-field type="colorpicker">
+            <name>accentColor</name>
+            <label>Accent color</label>
+            <label lang="de-DE">Akzentfarbe</label>
+            <defaultValue>#2c84dd</defaultValue>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Countdown</title>
+        <title lang="de-DE">Countdown</title>
+
+        <input-field type="bool">
+            <name>countdownActive</name>
+            <label>Show countdown</label>
+            <label lang="de-DE">Countdown anzeigen</label>
+            <defaultValue>false</defaultValue>
+        </input-field>
+
+        <input-field type="datetime">
+            <name>countdownDate</name>
+            <label>Launch date</label>
+            <label lang="de-DE">Startdatum</label>
+            <helpText>Date and time the countdown counts down to.</helpText>
+            <helpText lang="de-DE">Datum und Uhrzeit, auf die der Countdown herunterzählt.</helpText>
+        </input-field>
+
+        <input-field type="bool">
+            <name>autoEndOnCountdown</name>
+            <label>Open shop automatically when countdown expires</label>
+            <label lang="de-DE">Shop nach Ablauf des Countdowns automatisch öffnen</label>
+            <helpText>When the launch date is reached, visitors are let through automatically - no manual deactivation needed.</helpText>
+            <helpText lang="de-DE">Bei Erreichen des Startdatums werden Besucher automatisch durchgelassen - keine manuelle Deaktivierung nötig.</helpText>
+            <defaultValue>false</defaultValue>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Access</title>
+        <title lang="de-DE">Zugriff</title>
+
+        <input-field type="textarea">
+            <name>ipWhitelist</name>
+            <label>IP whitelist</label>
+            <label lang="de-DE">IP-Whitelist</label>
+            <helpText>One entry per line (or comma-separated). Supports IPv4, IPv6 and CIDR ranges, e.g. 192.168.1.0/24.</helpText>
+            <helpText lang="de-DE">Ein Eintrag pro Zeile (oder kommasepariert). Unterstützt IPv4, IPv6 und CIDR-Bereiche, z. B. 192.168.1.0/24.</helpText>
+        </input-field>
+
+        <input-field type="text">
+            <name>previewToken</name>
+            <label>Preview token</label>
+            <label lang="de-DE">Vorschau-Token</label>
+            <helpText>Open the shop with ?michaPreview=YOUR_TOKEN to bypass the coming soon page (sets a cookie for 7 days). Use a long random value.</helpText>
+            <helpText lang="de-DE">Shop mit ?michaPreview=DEIN_TOKEN aufrufen, um die Coming-Soon-Seite zu umgehen (setzt einen Cookie für 7 Tage). Langen, zufälligen Wert verwenden.</helpText>
+        </input-field>
+    </card>
+</config>

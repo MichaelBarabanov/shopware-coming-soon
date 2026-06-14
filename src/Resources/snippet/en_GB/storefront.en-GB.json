@@ -1,0 +1,15 @@
+{
+    "michaComingSoon": {
+        "metaTitle": "Coming soon",
+        "defaultTitle": "We're launching soon",
+        "defaultMessage": "Our new shop is almost ready. Check back soon!",
+        "countdown": {
+            "headline": "Launching in",
+            "days": "Days",
+            "hours": "Hours",
+            "minutes": "Minutes",
+            "seconds": "Seconds"
+        },
+        "liveNotice": "We're live! Reloading the page ..."
+    }
+}

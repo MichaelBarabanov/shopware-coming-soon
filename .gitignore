@@ -1,0 +1,13 @@
+# Dependencies
+/vendor/
+composer.lock
+
+# Shopware / build artifacts
+var/
+*.cache
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,15 @@
+{
+    "michaComingSoon": {
+        "metaTitle": "Bald verfügbar",
+        "defaultTitle": "Wir starten in Kürze",
+        "defaultMessage": "Unser neuer Shop ist fast fertig. Schau bald wieder vorbei!",
+        "countdown": {
+            "headline": "Es geht los in",
+            "days": "Tage",
+            "hours": "Stunden",
+            "minutes": "Minuten",
+            "seconds": "Sekunden"
+        },
+        "liveNotice": "Es geht los! Die Seite wird neu geladen ..."
+    }
+}

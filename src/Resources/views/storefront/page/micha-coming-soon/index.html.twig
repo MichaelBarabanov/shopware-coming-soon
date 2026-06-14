@@ -1,0 +1,229 @@
+{# Standalone page on purpose: no sw_extends / no theme layout, so nothing of
+   the real storefront (navigation, products, prices) can leak through and no
+   theme compilation is required. #}
+{% set accent = comingSoonConfig.accentColor matches '/^#[0-9a-fA-F]{3,8}$/' ? comingSoonConfig.accentColor : '#2c84dd' %}
+{% set pageTitle = comingSoonConfig.title ?: 'michaComingSoon.defaultTitle'|trans %}
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>{{ comingSoonConfig.title ?: 'michaComingSoon.metaTitle'|trans }}</title>
+    <style>
+        :root {
+            --mcs-accent: {{ accent }};
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            background: linear-gradient(135deg, #10141c 0%, #1d2533 60%, #10141c 100%);
+            {% if backgroundUrl %}
+            background-image: url('{{ backgroundUrl|e('html_attr') }}');
+            background-size: cover;
+            background-position: center;
+            {% endif %}
+        }
+
+        .mcs-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 14, 20, {{ backgroundUrl ? '0.62' : '0.25' }});
+        }
+
+        .mcs-card {
+            position: relative;
+            z-index: 1;
+            max-width: 44rem;
+            width: 100%;
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+
+        .mcs-logo {
+            max-width: 11rem;
+            max-height: 6rem;
+            margin-bottom: 2rem;
+        }
+
+        .mcs-title {
+            font-size: clamp(2rem, 5vw, 3.25rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .mcs-message {
+            font-size: 1.125rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 2.5rem;
+        }
+
+        .mcs-message a {
+            color: var(--mcs-accent);
+        }
+
+        .mcs-countdown-headline {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 1rem;
+        }
+
+        .mcs-countdown {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .mcs-countdown-box {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-top: 3px solid var(--mcs-accent);
+            border-radius: 0.5rem;
+            backdrop-filter: blur(6px);
+            min-width: 5.25rem;
+            padding: 1rem 0.5rem;
+        }
+
+        .mcs-countdown-value {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .mcs-countdown-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 0.25rem;
+        }
+
+        .mcs-live-notice {
+            display: none;
+            font-size: 1.125rem;
+            color: var(--mcs-accent);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="mcs-overlay"></div>
+
+    <main class="mcs-card">
+        {% if logoUrl %}
+            <img class="mcs-logo" src="{{ logoUrl }}" alt="{{ pageTitle }}">
+        {% endif %}
+
+        <h1 class="mcs-title">{{ pageTitle }}</h1>
+
+        <div class="mcs-message">
+            {% if comingSoonConfig.message %}
+                {{ comingSoonConfig.message|raw }}
+            {% else %}
+                <p>{{ 'michaComingSoon.defaultMessage'|trans }}</p>
+            {% endif %}
+        </div>
+
+        {% if showCountdown %}
+            <p class="mcs-countdown-headline">{{ 'michaComingSoon.countdown.headline'|trans }}</p>
+
+            <div class="mcs-countdown"
+                 data-countdown-target="{{ comingSoonConfig.countdownDate.timestamp * 1000 }}"
+                 data-auto-reload="{{ autoReloadOnEnd ? '1' : '0' }}">
+                <div class="mcs-countdown-box">
+                    <span class="mcs-countdown-value" data-unit="days">0</span>
+                    <span class="mcs-countdown-label">{{ 'michaComingSoon.countdown.days'|trans }}</span>
+                </div>
+                <div class="mcs-countdown-box">
+                    <span class="mcs-countdown-value" data-unit="hours">0</span>
+                    <span class="mcs-countdown-label">{{ 'michaComingSoon.countdown.hours'|trans }}</span>
+                </div>
+                <div class="mcs-countdown-box">
+                    <span class="mcs-countdown-value" data-unit="minutes">0</span>
+                    <span class="mcs-countdown-label">{{ 'michaComingSoon.countdown.minutes'|trans }}</span>
+                </div>
+                <div class="mcs-countdown-box">
+                    <span class="mcs-countdown-value" data-unit="seconds">0</span>
+                    <span class="mcs-countdown-label">{{ 'michaComingSoon.countdown.seconds'|trans }}</span>
+                </div>
+            </div>
+
+            <p class="mcs-live-notice">{{ 'michaComingSoon.liveNotice'|trans }}</p>
+
+            <script>
+                (function () {
+                    'use strict';
+
+                    var container = document.querySelector('[data-countdown-target]');
+                    if (!container) {
+                        return;
+                    }
+
+                    var target = parseInt(container.dataset.countdownTarget, 10);
+                    var autoReload = container.dataset.autoReload === '1';
+                    var liveNotice = document.querySelector('.mcs-live-notice');
+                    var values = {
+                        days: container.querySelector('[data-unit="days"]'),
+                        hours: container.querySelector('[data-unit="hours"]'),
+                        minutes: container.querySelector('[data-unit="minutes"]'),
+                        seconds: container.querySelector('[data-unit="seconds"]')
+                    };
+
+                    function pad(value) {
+                        return value < 10 ? '0' + value : String(value);
+                    }
+
+                    function tick() {
+                        var diff = target - Date.now();
+
+                        if (diff <= 0) {
+                            window.clearInterval(timer);
+                            container.style.display = 'none';
+
+                            if (liveNotice) {
+                                liveNotice.style.display = 'block';
+                            }
+
+                            if (autoReload) {
+                                window.setTimeout(function () {
+                                    window.location.reload();
+                                }, 2000);
+                            }
+
+                            return;
+                        }
+
+                        var seconds = Math.floor(diff / 1000);
+
+                        values.days.textContent = String(Math.floor(seconds / 86400));
+                        values.hours.textContent = pad(Math.floor((seconds % 86400) / 3600));
+                        values.minutes.textContent = pad(Math.floor((seconds % 3600) / 60));
+                        values.seconds.textContent = pad(seconds % 60);
+                    }
+
+                    var timer = window.setInterval(tick, 1000);
+                    tick();
+                })();
+            </script>
+        {% endif %}
+    </main>
+</body>
+</html>
