@@ -2,6 +2,7 @@
 
 namespace Micha\ComingSoon\Service;
 
+use Shopware\Core\Content\Media\MediaCollection;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -12,6 +13,9 @@ class ComingSoonService
 {
     public const CONFIG_DOMAIN = 'MichaComingSoon.config.';
 
+    /**
+     * @param EntityRepository<MediaCollection> $mediaRepository
+     */
     public function __construct(
         private readonly SystemConfigService $systemConfigService,
         private readonly EntityRepository $mediaRepository

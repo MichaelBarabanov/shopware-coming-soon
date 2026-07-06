@@ -1,11 +1,11 @@
-# MichaComingSoon – Coming Soon & Maintenance Mode for Shopware 6
+# MichaComingSoon - Coming Soon & Maintenance Mode for Shopware 6
 
-Shows visitors a configurable coming soon / maintenance page – per sales channel, SEO-safe, with countdown and preview access.
+Shows visitors a configurable coming soon / maintenance page - per sales channel, SEO-safe, with countdown and preview access.
 
 ## Features
 
 - **Per sales channel**: enable the page for one shop while others stay online
-- **Specific URLs**: instead of the whole channel, block only individual paths (e.g. `/summer-sale`) — works on SEO and technical URLs, with sub-page and `*` wildcard matching
+- **Specific URLs**: instead of the whole channel, block only individual paths (e.g. `/summer-sale`) - works on SEO and technical URLs, with sub-page and `*` wildcard matching
 - **Fully configurable**: headline, rich text, background image, logo, accent color
 - **Countdown**: optional launch countdown, optionally opens the shop automatically when it expires
 - **Access control**: IP whitelist (IPv4/IPv6/CIDR) and a secret preview link (`?michaPreview=TOKEN`, sets a 7-day cookie)
@@ -29,7 +29,7 @@ bin/console cache:clear
 
 ## Configuration
 
-Admin → Extensions → My extensions → MichaComingSoon → Configure.
+Admin -> Extensions -> My extensions -> MichaComingSoon -> Configure.
 
 **Important:** select the sales channel in the dropdown at the top to configure (and enable) the page per sales channel.
 
@@ -56,4 +56,4 @@ The plugin clears the HTTP cache automatically when you toggle it. If you use an
 
 ## License
 
-Proprietary – Michael Barabanov, https://github.com/MichaelBarabanov
+Proprietary - Michael Barabanov, https://github.com/MichaelBarabanov
