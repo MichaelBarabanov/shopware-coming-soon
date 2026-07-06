@@ -57,3 +57,4 @@ The plugin clears the HTTP cache automatically when you toggle it. If you use an
 ## License
 
 Proprietary - Michael Barabanov, https://github.com/MichaelBarabanov
+<img width="1909" height="906" alt="Screenshot 2026-06-15 002804" src="https://github.com/user-attachments/assets/ba9e0dab-6852-4074-b5f3-e78ed3b12d9b" />
